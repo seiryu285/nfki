@@ -607,7 +607,7 @@
 
         function onClick(event) {
             raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(quantumRealms);
+            const intersects = raycaster.intersectObjects(quantumRealms, true);
 
             if (intersects.length > 0) {
                 const clickedRealm = intersects[0].object;
@@ -618,7 +618,7 @@
 
         function interactWithRealms() {
             raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(quantumRealms);
+            const intersects = raycaster.intersectObjects(quantumRealms, true);
             
             quantumRealms.forEach(realm => {
                 gsap.to(realm.scale, {
