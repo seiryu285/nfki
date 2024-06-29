@@ -601,7 +601,7 @@
 
         function updateTouchPosition(touch) {
             mouse.x = (touch.pageX / window.innerWidth) * 2 - 1;
-            mouse.y = -(touch.pageY / window.innerHeight) * 2 + 1;
+            mouse.y = -(touch.pageY / window.innerHeight) *2 + 1;
             interactWithRealms();
         }
 
@@ -610,7 +610,7 @@
             const intersects = raycaster.intersectObjects(quantumRealms, true);
 
             if (intersects.length > 0) {
-                const clickedRealm = intersects[0].object;
+                const clickedRealm = intersects[0].object.parent || intersects[0].object;
                 const sectionId = clickedRealm.userData.section;
                 navigateToSection(sectionId);
             }
@@ -630,7 +630,7 @@
             });
 
             if (intersects.length > 0) {
-                const intersectedRealm = intersects[0].object;
+                const intersectedRealm = intersects[0].object.parent || intersects[0].object;
                 gsap.to(intersectedRealm.scale, {
                     x: 1.2,
                     y: 1.2,
