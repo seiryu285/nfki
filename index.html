@@ -34,6 +34,7 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.5s ease;
+            overflow-y: auto;
         }
         .content-panel {
             background: rgba(0, 20, 40, 0.7);
@@ -109,24 +110,18 @@
             background-color: rgba(0, 255, 255, 0.5);
         }
         #pricing-container {
-            position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(0, 20, 40, 0.7);
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
         }
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
         .pricing-item {
             position: relative;
-            width: 300px;
             background: rgba(0, 255, 255, 0.1);
             border: 2px solid rgba(0, 255, 255, 0.5);
             border-radius: 15px;
@@ -187,6 +182,8 @@
             text-align: left;
             padding: 0 20px;
             font-size: 0.9em;
+            max-height: 150px;
+            overflow-y: auto;
         }
         .show-details-btn {
             background: rgba(0, 255, 255, 0.2);
@@ -282,26 +279,13 @@
                 border-radius: 25px;
             }
             #pricing-container {
-                padding: 20px 0;
-                overflow-y: auto;
+                padding: 10px;
             }
             .pricing-grid {
                 grid-template-columns: 1fr;
-                gap: 40px;
-                padding: 0 20px;
             }
             .pricing-item {
-                width: 100%;
                 max-width: none;
-                height: 400px;
-            }
-            .pricing-details img {
-                max-height: 120px;
-            }
-            .pricing-details p {
-                font-size: 0.8em;
-                max-height: 150px;
-                overflow-y: auto;
             }
             #language-toggle {
                 top: 10px;
@@ -315,10 +299,10 @@
                 display: none;
             }
             #contact .content-panel {
-                padding-bottom: 100px; /* メールアドレスのためのスペースを確保 */
+                padding-bottom: 100px;
             }
             #email-contact {
-                position: absolute;
+                position: fixed;
                 bottom: 70px;
                 left: 0;
                 width: 100%;
@@ -347,11 +331,7 @@
                 padding: 15px 25px;
             }
             .pricing-grid {
-                gap: 60px;
-            }
-            .pricing-item {
-                width: 400px;
-                padding: 30px;
+                gap: 40px;
             }
             .pricing-item h3 {
                 font-size: 2.2em;
@@ -510,6 +490,7 @@
             if (isMobile) {
                 document.addEventListener('touchstart', onTouchStart, false);
                 document.addEventListener('touchmove', onTouchMove, false);
+                document.addEventListener('touchend', onTouchEnd, false);
             } else {
                 document.addEventListener('mousemove', onMouseMove, false);
                 document.addEventListener('click', onClick, false);
@@ -608,16 +589,22 @@
             }
         }
 
-        function updateTouchPosition(touch) {
-            mouse.x = (touch.pageX / window.innerWidth) * 2 - 1;
-            mouse.y = -(touch.pageY / window.innerHeight) * 2 + 1;interactWithRealms();
+        function onTouchEnd(event) {
+            if (event.changedTouches.length === 1) {
+                const touch = event.changedTouches[0];
+                mouse.x = (touch.pageX / window.innerWidth) * 2 - 1;
+                mouse.y = -(touch.pageY / window.innerHeight) * 2 + 1;
+                onClick(event);
+            }
         }
 
-        function onClick(event) {
-            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        function updateTouchPosition(touch) {
+            mouse.x = (touch.pageX / window.innerWidth) * 2 - 1;
+            mouse.y = -(touch.pageY / window.innerHeight) * 2 + 1;
+            interactWithRealms();
+        }
 
-            raycaster.setFromCamera(mouse, camera);
+        function onClick(event) {raycaster.setFromCamera(mouse, camera);
             const intersects = raycaster.intersectObjects(quantumRealms);
 
             if (intersects.length > 0) {
