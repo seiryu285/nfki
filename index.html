@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexus - Pioneering New Gaming Experiences</title>
+    <meta name="description" content="Nexus is a pioneering game development company creating innovative games and interactive applications for modern platforms.">
+    <meta property="og:title" content="Nexus - Pioneering New Gaming Experiences">
+    <meta property="og:description" content="Discover innovative games and interactive applications by Nexus, a leading game development company.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.nexusgaming.com">
+    <meta property="og:image" content="https://www.nexusgaming.com/images/og-image.jpg">
     <style>
         body, html {
             margin: 0;
@@ -75,9 +81,10 @@
             font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
             color: #00ffff;
         }
-        .quantum-button:hover, .quantum-button:active {
+        .quantum-button:hover, .quantum-button:active, .quantum-button:focus {
             background-color: rgba(0, 255, 255, 0.3);
             transform: scale(1.05);
+            outline: none;
         }
         #quantum-cursor {
             position: fixed;
@@ -104,8 +111,9 @@
             cursor: pointer;
             font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
         }
-        .lang-btn:hover, .lang-btn:active {
+        .lang-btn:hover, .lang-btn:active, .lang-btn:focus {
             background-color: rgba(0, 255, 255, 0.3);
+            outline: none;
         }
         .lang-btn.active {
             background-color: rgba(0, 255, 255, 0.5);
@@ -131,7 +139,7 @@
             transition: all 0.3s ease;
             overflow: hidden;
         }
-        .pricing-item:hover {
+        .pricing-item:hover, .pricing-item:focus-within {
             transform: scale(1.05);
             box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
         }
@@ -195,8 +203,9 @@
             transition: all 0.3s ease;
             margin-top: 10px;
         }
-        .show-details-btn:hover, .show-details-btn:active {
+        .show-details-btn:hover, .show-details-btn:active, .show-details-btn:focus {
             background: rgba(0, 255, 255, 0.4);
+            outline: none;
         }
         .close-details-btn {
             position: absolute;
@@ -207,6 +216,10 @@
             color: #00ffff;
             font-size: 1.5em;
             cursor: pointer;
+        }
+        .close-details-btn:hover, .close-details-btn:active, .close-details-btn:focus {
+            color: #ffffff;
+            outline: none;
         }
         .contact-form {
             display: flex;
@@ -234,8 +247,9 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        .contact-form button:hover, .contact-form button:active {
+        .contact-form button:hover, .contact-form button:active, .contact-form button:focus {
             background: rgba(0, 255, 255, 0.4);
+            outline: none;
         }
         #email-contact {
             margin-top: 20px;
@@ -247,8 +261,32 @@
             text-decoration: none;
             transition: all 0.3s ease;
         }
-        #email-contact a:hover {
+        #email-contact a:hover, #email-contact a:focus {
             text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            outline: none;
+        }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        #error-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 10000;
+            display: none;
         }
 
         @media (max-width: 768px) {
@@ -352,434 +390,513 @@
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-</head>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet"></head>
 <body>
-    <div id="universe-container"></div>
-    <div id="quantum-cursor"></div>
-    <div id="language-toggle">
-        <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="ja">JP</button>
+    <div id="universe-container" role="img" aria-label="Interactive 3D universe background"></div>
+    <div id="quantum-cursor" aria-hidden="true"></div>
+    <div id="language-toggle" role="group" aria-label="Language selection">
+        <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+        <button class="lang-btn" data-lang="ja" aria-pressed="false">JP</button>
     </div>
-    <div id="quantum-hud">
-        <div class="quantum-button" data-section="home" data-en="HOME" data-ja="ホーム">HOME</div>
-        <div class="quantum-button" data-section="about" data-en="ABOUT" data-ja="概要">ABOUT</div>
-        <div class="quantum-button" data-section="services" data-en="SERVICES" data-ja="サービス">SERVICES</div>
-        <div class="quantum-button" data-section="pricing" data-en="PRICING" data-ja="料金">PRICING</div>
-        <div class="quantum-button" data-section="contact" data-en="CONTACT" data-ja="問合せ">CONTACT</div>
-    </div>
+    <nav id="quantum-hud" role="navigation" aria-label="Main navigation">
+        <button class="quantum-button" data-section="home" data-en="HOME" data-ja="ホーム" aria-label="Navigate to Home section">HOME</button>
+        <button class="quantum-button" data-section="about" data-en="ABOUT" data-ja="概要" aria-label="Navigate to About section">ABOUT</button>
+        <button class="quantum-button" data-section="services" data-en="SERVICES" data-ja="サービス" aria-label="Navigate to Services section">SERVICES</button>
+        <button class="quantum-button" data-section="pricing" data-en="PRICING" data-ja="料金" aria-label="Navigate to Pricing section">PRICING</button>
+        <button class="quantum-button" data-section="contact" data-en="CONTACT" data-ja="問合せ" aria-label="Navigate to Contact section">CONTACT</button>
+    </nav>
 
-    <div class="content-section" id="home">
-        <div class="content-panel">
-            <h2 data-en="Welcome to Nexus" data-ja="Nexusへようこそ">Welcome to Nexus</h2>
-            <p data-en="Pioneering the future of gaming experiences. We specialize in creating innovative games and interactive applications optimized for modern platforms." data-ja="ゲーム体験の未来を切り開きます。最新のプラットフォーム向けの革新的なゲームやインタラクティブなアプリケーションの制作を専門としています。">Pioneering the future of gaming experiences. We specialize in creating innovative games and interactive applications optimized for modern platforms.</p>
-        </div>
-    </div>
+    <main>
+        <section class="content-section" id="home" aria-labelledby="home-title">
+            <div class="content-panel">
+                <h2 id="home-title" data-en="Welcome to Nexus" data-ja="Nexusへようこそ">Welcome to Nexus</h2>
+                <p data-en="Pioneering the future of gaming experiences. We specialize in creating innovative games and interactive applications optimized for modern platforms." data-ja="ゲーム体験の未来を切り開きます。最新のプラットフォーム向けの革新的なゲームやインタラクティブなアプリケーションの制作を専門としています。">Pioneering the future of gaming experiences. We specialize in creating innovative games and interactive applications optimized for modern platforms.</p>
+            </div>
+        </section>
 
-    <div class="content-section" id="about">
-        <div class="content-panel">
-            <h2 data-en="About Us" data-ja="会社概要">About Us</h2>
-            <p data-en="Nexus is a pioneering game development company that enables new experiences. Our team of visionary developers and designers pushes the boundaries of interactive digital realms, offering innovative gaming solutions that bring your ideas to life. While we currently focus on our own game development projects, we are continuously exploring new possibilities in the gaming industry." data-ja="Nexusは、新しい体験を可能にする先駆的なゲーム開発会社です。先見性のある開発者とデザイナーのチームが、インタラクティブなデジタル領域の可能性を押し広げ、お客様のアイデアを実現する革新的なゲームソリューションを提供しています。現在は自社のゲーム開発プロジェクトに注力していますが、ゲーム業界の新たな可能性を常に探求しています。">Nexus is a pioneering game development company that enables new experiences. Our team of visionary developers and designers pushes the boundaries of interactive digital realms, offering innovative gaming solutions that bring your ideas to life. While we currently focus on our own game development projects, we are continuously exploring new possibilities in the gaming industry.</p>
-        </div>
-    </div>
+        <section class="content-section" id="about" aria-labelledby="about-title">
+            <div class="content-panel">
+                <h2 id="about-title" data-en="About Us" data-ja="会社概要">About Us</h2>
+                <p data-en="Nexus is a pioneering game development company that enables new experiences. Our team of visionary developers and designers pushes the boundaries of interactive digital realms, offering innovative gaming solutions that bring your ideas to life. While we currently focus on our own game development projects, we are continuously exploring new possibilities in the gaming industry." data-ja="Nexusは、新しい体験を可能にする先駆的なゲーム開発会社です。先見性のある開発者とデザイナーのチームが、インタラクティブなデジタル領域の可能性を押し広げ、お客様のアイデアを実現する革新的なゲームソリューションを提供しています。現在は自社のゲーム開発プロジェクトに注力していますが、ゲーム業界の新たな可能性を常に探求しています。">Nexus is a pioneering game development company that enables new experiences. Our team of visionary developers and designers pushes the boundaries of interactive digital realms, offering innovative gaming solutions that bring your ideas to life. While we currently focus on our own game development projects, we are continuously exploring new possibilities in the gaming industry.</p>
+            </div>
+        </section>
 
-    <div class="content-section" id="services">
-        <div class="content-panel">
-            <h2 data-en="Our Services" data-ja="サービス">Our Services</h2>
-            <p data-en="1. Game Development: Creating innovative and engaging games for various platforms." data-ja="1. ゲーム開発：様々なプラットフォーム向けの革新的で魅力的なゲームの制作。">1. Game Development: Creating innovative and engaging games for various platforms.</p>
-            <p data-en="2. Interactive Applications: Developing immersive and dynamic applications." data-ja="2. インタラクティブアプリケーション：没入感のあるダイナミックなアプリケーションの開発。">2. Interactive Applications: Developing immersive and dynamic applications.</p>
-            <p data-en="3. 3D Visualization: Creating stunning 3D graphics and environments for games and applications." data-ja="3. 3Dビジュアライゼーション：ゲームやアプリケーション向けの驚異的な3Dグラフィックスと環境の制作。">3. 3D Visualization: Creating stunning 3D graphics and environments for games and applications.</p>
-            <p data-en="4. Game Engine Development: Building custom game engines and tools." data-ja="4. ゲームエンジン開発：カスタムゲームエンジンやツールの構築。">4. Game Engine Development: Building custom game engines and tools.</p>
-        </div>
-    </div>
+        <section class="content-section" id="services" aria-labelledby="services-title">
+            <div class="content-panel">
+                <h2 id="services-title" data-en="Our Services" data-ja="サービス">Our Services</h2>
+                <ul>
+                    <li data-en="Game Development: Creating innovative and engaging games for various platforms." data-ja="ゲーム開発：様々なプラットフォーム向けの革新的で魅力的なゲームの制作。">Game Development: Creating innovative and engaging games for various platforms.</li>
+                    <li data-en="Interactive Applications: Developing immersive and dynamic applications." data-ja="インタラクティブアプリケーション：没入感のあるダイナミックなアプリケーションの開発。">Interactive Applications: Developing immersive and dynamic applications.</li>
+                    <li data-en="3D Visualization: Creating stunning 3D graphics and environments for games and applications." data-ja="3Dビジュアライゼーション：ゲームやアプリケーション向けの驚異的な3Dグラフィックスと環境の制作。">3D Visualization: Creating stunning 3D graphics and environments for games and applications.</li>
+                    <li data-en="Game Engine Development: Building custom game engines and tools." data-ja="ゲームエンジン開発：カスタムゲームエンジンやツールの構築。">Game Engine Development: Building custom game engines and tools.</li>
+                </ul>
+            </div>
+        </section>
 
-    <div class="content-section" id="pricing">
-        <div id="pricing-container">
-            <div class="pricing-grid">
-                <div class="pricing-item">
-                    <h3 data-en="Individual/Small Scale" data-ja="個人/小規模開発">Individual/Small Scale</h3>
-                    <div class="price" data-en="From ¥300,000" data-ja="30万円から">From ¥300,000</div>
-                    <ul>
-                        <li data-en="Custom game development" data-ja="カスタムゲーム開発">Custom game development</li>
-                        <li data-en="Interactive elements" data-ja="インタラクティブな要素">Interactive elements</li>
-                        <li data-en="Basic 3D modeling" data-ja="基本的な3Dモデリング">Basic 3D modeling</li>
-                    </ul>
-                    <button class="show-details-btn" data-en="Learn More" data-ja="詳細を見る">Learn More</button>
-                    <div class="pricing-details">
-                        <button class="close-details-btn">&times;</button>
-                        <img src="/api/placeholder/300/150" alt="Individual Plan Sample">
-                        <p data-en="Perfect for indie game developers or small projects. Our individual plan offers a fully custom game development experience tailored to your unique vision." data-ja="インディーゲーム開発者や小規模プロジェクトに最適です。個人向けプランでは、お客様独自のビジョンに合わせた完全カスタムのゲーム開発体験を提供します。">Perfect for indie game developers or small projects. Our individual plan offers a fully custom game development experience tailored to your unique vision.</p>
+        <section class="content-section" id="pricing" aria-labelledby="pricing-title">
+            <div id="pricing-container">
+                <h2 id="pricing-title" class="sr-only" data-en="Pricing" data-ja="料金プラン">Pricing</h2>
+                <div class="pricing-grid">
+                    <div class="pricing-item">
+                        <h3 data-en="Individual/Small Scale" data-ja="個人/小規模開発">Individual/Small Scale</h3>
+                        <div class="price" data-en="From ¥300,000" data-ja="30万円から">From ¥300,000</div>
+                        <ul>
+                            <li data-en="Custom game development" data-ja="カスタムゲーム開発">Custom game development</li>
+                            <li data-en="Interactive elements" data-ja="インタラクティブな要素">Interactive elements</li>
+                            <li data-en="Basic 3D modeling" data-ja="基本的な3Dモデリング">Basic 3D modeling</li>
+                        </ul>
+                        <button class="show-details-btn" data-en="Learn More" data-ja="詳細を見る" aria-expanded="false">Learn More</button>
+                        <div class="pricing-details" hidden>
+                            <button class="close-details-btn" aria-label="Close details">&times;</button>
+                            <img src="/api/placeholder/300/150" alt="Individual Plan Sample">
+                            <p data-en="Perfect for indie game developers or small projects. Our individual plan offers a fully custom game development experience tailored to your unique vision." data-ja="インディーゲーム開発者や小規模プロジェクトに最適です。個人向けプランでは、お客様独自のビジョンに合わせた完全カスタムのゲーム開発体験を提供します。">Perfect for indie game developers or small projects. Our individual plan offers a fully custom game development experience tailored to your unique vision.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="pricing-item">
-                    <h3 data-en="Corporate" data-ja="法人向け">Corporate</h3>
-                    <div class="price" data-en="From ¥500,000" data-ja="50万円から">From ¥500,000</div>
-                    <ul>
-                        <li data-en="Advanced game development" data-ja="高度なゲーム開発">Advanced game development</li>
-                        <li data-en="Complex interactive applications" data-ja="複雑なインタラクティブアプリケーション">Complex interactive applications</li>
-                        <li data-en="VR/AR compatibility" data-ja="VR/AR互換性">VR/AR compatibility</li>
-                    </ul>
-                    <button class="show-details-btn" data-en="Learn More" data-ja="詳細を見る">Learn More</button>
-                    <div class="pricing-details">
-                        <button class="close-details-btn">&times;</button>
-                        <img src="/api/placeholder/300/150" alt="Corporate Plan Sample">
-                        <p data-en="Designed for businesses seeking to make a lasting impression in the gaming industry. Our corporate plan includes advanced game development, complex interactivity, and seamless VR/AR integration for immersive gaming experiences." data-ja="ゲーム業界で印象的なプレゼンスを求める企業向けに設計されています。法人向けプランには、高度なゲーム開発、複雑なインタラクティビティ、没入型のゲーム体験のためのシームレスなVR/AR統合が含まれています。">Designed for businesses seeking to make a lasting impression in the gaming industry. Our corporate plan includes advanced game development, complex interactivity, and seamless VR/AR integration for immersive gaming experiences.</p>
+                    <div class="pricing-item">
+                        <h3 data-en="Corporate" data-ja="法人向け">Corporate</h3>
+                        <div class="price" data-en="From ¥500,000" data-ja="50万円から">From ¥500,000</div>
+                        <ul>
+                            <li data-en="Advanced game development" data-ja="高度なゲーム開発">Advanced game development</li>
+                            <li data-en="Complex interactive applications" data-ja="複雑なインタラクティブアプリケーション">Complex interactive applications</li>
+                            <li data-en="VR/AR compatibility" data-ja="VR/AR互換性">VR/AR compatibility</li>
+                        </ul>
+                        <button class="show-details-btn" data-en="Learn More" data-ja="詳細を見る" aria-expanded="false">Learn More</button>
+                        <div class="pricing-details" hidden>
+                            <button class="close-details-btn" aria-label="Close details">&times;</button>
+                            <img src="/api/placeholder/300/150" alt="Corporate Plan Sample">
+                            <p data-en="Designed for businesses seeking to make a lasting impression in the gaming industry. Our corporate plan includes advanced game development, complex interactivity, and seamless VR/AR integration for immersive gaming experiences." data-ja="ゲーム業界で印象的なプレゼンスを求める企業向けに設計されています。法人向けプランには、高度なゲーム開発、複雑なインタラクティビティ、没入型のゲーム体験のためのシームレスなVR/AR統合が含まれています。">Designed for businesses seeking to make a lasting impression in the gaming industry. Our corporate plan includes advanced game development, complex interactivity, and seamless VR/AR integration for immersive gaming experiences.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <div class="content-section" id="contact">
-        <div class="content-panel">
-            <h2 data-en="Contact Us" data-ja="お問い合わせ">Contact Us</h2>
-            <p data-en="Ready to bring your game vision to life? Contact us to discuss your project or potential collaborations." data-ja="ゲームのビジョンを実現する準備はできていますか？プロジェクトや潜在的な協力について、お気軽にお問い合わせください。">Ready to bring your game vision to life? Contact us to discuss your project or potential collaborations.</p>
-            <form class="contact-form" id="contact-form">
-                <input type="text" name="name" placeholder="Name" data-en="Name" data-ja="お名前" required>
-                <input type="email" name="email" placeholder="Email" data-en="Email" data-ja="メールアドレス" required>
-                <select name="service" required>
-                    <option value="" data-en="Select Service" data-ja="サービスを選択">Select Service</option>
-                    <option value="game" data-en="Game Development" data-ja="ゲーム開発">Game Development</option>
-                    <option value="app" data-en="Interactive Application" data-ja="インタラクティブアプリケーション">Interactive Application</option>
-                    <option value="3d" data-en="3D Visualization" data-ja="3Dビジュアライゼーション">3D Visualization</option>
-                    <option value="engine" data-en="Game Engine Development" data-ja="ゲームエンジン開発">Game Engine Development</option>
-                </select>
-                <textarea name="message" placeholder="Project Details" data-en="Project Details" data-ja="プロジェクトの詳細" rows="4" required></textarea>
-                <button type="submit" data-en="Submit" data-ja="送信">Submit</button>
-            </form>
-            <div id="email-contact">
-                <p><span data-en="Or email us directly: " data-ja="または直接メールでのお問い合わせ: ">Or email us directly: </span><a href="mailto:bluedragon70072@icloud.com">bluedragon70072@icloud.com</a></p>
+        <section class="content-section" id="contact" aria-labelledby="contact-title">
+            <div class="content-panel">
+                <h2 id="contact-title" data-en="Contact Us" data-ja="お問い合わせ">Contact Us</h2>
+                <p data-en="Ready to bring your game vision to life? Contact us to discuss your project or potential collaborations." data-ja="ゲームのビジョンを実現する準備はできていますか？プロジェクトや潜在的な協力について、お気軽にお問い合わせください。">Ready to bring your game vision to life? Contact us to discuss your project or potential collaborations.</p>
+                <form class="contact-form" id="contact-form">
+                    <label for="name" class="sr-only">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Name" data-en="Name" data-ja="お名前" required autocomplete="name">
+                    <label for="email" class="sr-only">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Email" data-en="Email" data-ja="メールアドレス" required autocomplete="email">
+                    <label for="service" class="sr-only">Service</label>
+                    <select id="service" name="service" required>
+                        <option value="" data-en="Select Service" data-ja="サービスを選択">Select Service</option>
+                        <option value="game" data-en="Game Development" data-ja="ゲーム開発">Game Development</option>
+                        <option value="app" data-en="Interactive Application" data-ja="インタラクティブアプリケーション">Interactive Application</option>
+                        <option value="3d" data-en="3D Visualization" data-ja="3Dビジュアライゼーション">3D Visualization</option>
+                        <option value="engine" data-en="Game Engine Development" data-ja="ゲームエンジン開発">Game Engine Development</option>
+                    </select>
+                    <label for="message" class="sr-only">Project Details</label>
+                    <textarea id="message" name="message" placeholder="Project Details" data-en="Project Details" data-ja="プロジェクトの詳細" rows="4" required></textarea>
+                    <button type="submit" data-en="Submit" data-ja="送信">Submit</button>
+                </form>
+                <div id="email-contact">
+                    <p><span data-en="Or email us directly: " data-ja="または直接メールでのお問い合わせ: ">Or email us directly: </span><a href="mailto:contact@nexusgaming.com">contact@nexusgaming.com</a></p>
+                </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
+
+    <div id="error-message"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script>
-        let scene, camera, renderer, particles, raycaster, mouse;
-        let quantumRealms = [];
-        let currentRealm = 0;
-        let isMobile = false;
+        document.addEventListener('DOMContentLoaded', function() {
+            let scene, camera, renderer, particles, raycaster, mouse;
+            let quantumRealms = [];
+            let currentRealm = 0;
+            let isMobile = false;
 
-        const realmData = [
-            { color: 0x00ffff, position: new THREE.Vector3(0, 0, -1000), section: "home" },
-            { color: 0xff00ff, position: new THREE.Vector3(800, 400, -1500), section: "about" },
-            { color: 0xffff00, position: new THREE.Vector3(-600, -200, -2000), section: "services" },
-            { color: 0x00ff00, position: new THREE.Vector3(400, -500, -2500), section: "pricing" },
-            { color: 0xff8000, position: new THREE.Vector3(-200, 600, -3000), section: "contact" }
-        ];
+            const realmData = [
+                { color: 0x00ffff, position: new THREE.Vector3(0, 0, -1000), section: "home" },
+                { color: 0xff00ff, position: new THREE.Vector3(800, 400, -1500), section: "about" },
+                { color: 0xffff00, position: new THREE.Vector3(-600, -200, -2000), section: "services" },
+                { color: 0x00ff00, position: new THREE.Vector3(400, -500, -2500), section: "pricing" },
+                { color: 0xff8000, position: new THREE.Vector3(-200, 600, -3000), section: "contact" }
+            ];
 
-        function init() {
-            isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            function init() {
+                try {
+                    isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 5000);
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(window.devicePixelRatio);
-            document.getElementById('universe-container').appendChild(renderer.domElement);
+                    scene = new THREE.Scene();
+                    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 5000);
+                    renderer = new THREE.WebGLRenderer({ 
+                        antialias: true, 
+                        alpha: true,
+                        powerPreference: "high-performance"
+                    });
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                    document.getElementById('universe-container').appendChild(renderer.domElement);
 
-            raycaster = new THREE.Raycaster();
-            mouse = new THREE.Vector2();
+                    raycaster = new THREE.Raycaster();
+                    mouse = new THREE.Vector2();
 
-            createQuantumParticles();
-            createQuantumRealms();
+                    createQuantumParticles();
+                    createQuantumRealms();
 
-            camera.position.z = 1000;
+                    camera.position.z = 1000;
 
-            window.addEventListener('resize', onWindowResize, false);
+                    window.addEventListener('resize', onWindowResize, false);
 
-            if (isMobile) {
-                document.addEventListener('touchstart', onTouchStart, { passive: false });
-                document.addEventListener('touchmove', onTouchMove, { passive: false });
-                document.addEventListener('touchend', onTouchEnd, false);
-            } else {
-                document.addEventListener('mousemove', onMouseMove, false);
-                document.addEventListener('click', onClick, false);
-                setupQuantumCursor();
+                    if (isMobile) {
+                        document.addEventListener('touchstart', onTouchStart, { passive: false });
+                        document.addEventListener('touchmove', onTouchMove, { passive: false });
+                        document.addEventListener('touchend', onTouchEnd, false);
+                    } else {
+                        document.addEventListener('mousemove', onMouseMove, false);
+                        document.addEventListener('click', onClick, false);
+                        setupQuantumCursor();
+                    }
+
+                    setupQuantumButtons();
+                    setupLanguageToggle();setupQuantumButtons();
+                    setupLanguageToggle();
+                    setupContactForm();
+                    setupPricingDetails();
+                    setupKeyboardNavigation();
+
+                    animate();
+                } catch (error) {
+                    console.error('Initialization error:', error);
+                    displayErrorMessage('An error occurred while initializing the application. Please refresh the page or contact support.');
+                }
             }
 
-            setupQuantumButtons();
-            setupLanguageToggle();
-            setupContactForm();
-            setupPricingDetails();
-
-            animate();
-        }
-
-        function createQuantumParticles() {
-            const particleCount = isMobile ? 25000 : 50000;
-            const particleGeometry = new THREE.BufferGeometry();
-            const particleMaterial = new THREE.PointsMaterial({
-                color: 0x00ffff,
-                size: isMobile ? 3 : 2,
-                blending: THREE.AdditiveBlending,
-                transparent: true,
-                sizeAttenuation: true
-            });
-
-            const positions = new Float32Array(particleCount * 3);
-
-            for (let i = 0; i < particleCount * 3; i++) {
-                positions[i] = (Math.random() - 0.5) * 2000;
-            }
-
-            particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-            particles = new THREE.Points(particleGeometry, particleMaterial);
-            scene.add(particles);
-        }
-
-        function createQuantumRealms() {
-            realmData.forEach((data, index) => {
-                const particleCount = isMobile ? 5000 : 10000;
-                const particles = new Float32Array(particleCount * 3);
-                const color = new THREE.Color(data.color);
-
-                const geometry = new THREE.BufferGeometry();
-                const material = new THREE.PointsMaterial({
-                    color: color,
+            function createQuantumParticles() {
+                const particleCount = isMobile ? 15000 : 30000;
+                const particleGeometry = new THREE.BufferGeometry();
+                const particleMaterial = new THREE.PointsMaterial({
+                    color: 0x00ffff,
                     size: isMobile ? 3 : 2,
                     blending: THREE.AdditiveBlending,
                     transparent: true,
-                    sizeAttenuation: true
+                    sizeAttenuation: true,
+                    vertexColors: true
                 });
 
-                const radius = 200 + index * 40;
-                for (let i = 0; i < particleCount; i++) {
-                    const theta = Math.random() * Math.PI * 2;
-                    const phi = Math.acos(Math.random() * 2 - 1);
-                    const x = radius * Math.sin(phi) * Math.cos(theta);
-                    const y = radius * Math.sin(phi) * Math.sin(theta);
-                    const z = radius * Math.cos(phi);
+                const positions = new Float32Array(particleCount * 3);
+                const colors = new Float32Array(particleCount * 3);
+                const scales = new Float32Array(particleCount);
 
-                    particles[i * 3] = x;
-                    particles[i * 3 + 1] = y;
-                    particles[i * 3 + 2] = z;
+                for (let i = 0; i < particleCount * 3; i += 3) {
+                    positions[i] = (Math.random() - 0.5) * 2000;
+                    positions[i + 1] = (Math.random() - 0.5) * 2000;
+                    positions[i + 2] = (Math.random() - 0.5) * 2000;
+
+                    const color = new THREE.Color(0x00ffff);
+                    color.setHSL(Math.random(), 1.0, 0.5);
+                    colors[i] = color.r;
+                    colors[i + 1] = color.g;
+                    colors[i + 2] = color.b;
+
+                    scales[i / 3] = Math.random();
                 }
 
-                geometry.setAttribute('position', new THREE.BufferAttribute(particles, 3));
-                const particleSystem = new THREE.Points(geometry, material);
-                particleSystem.position.copy(data.position);
-                particleSystem.userData.section = data.section;
-                scene.add(particleSystem);
-                quantumRealms.push(particleSystem);
-            });
-        }
+                particleGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+                particleGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+                particleGeometry.setAttribute('scale', new THREE.Float32BufferAttribute(scales, 1));
 
-        function onMouseMove(event) {
-            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-            const cursor = document.getElementById('quantum-cursor');
-            cursor.style.left = `${event.clientX}px`;
-            cursor.style.top = `${event.clientY}px`;
-
-            interactWithRealms();
-        }
-
-        function onTouchStart(event) {
-            if (event.touches.length === 1) {
-                event.preventDefault();
-                updateTouchPosition(event.touches[0]);
+                particles = new THREE.Points(particleGeometry, particleMaterial);
+                scene.add(particles);
             }
-        }
 
-        function onTouchMove(event) {
-            if (event.touches.length === 1) {
-                event.preventDefault();
-                updateTouchPosition(event.touches[0]);
+            function createQuantumRealms() {
+                realmData.forEach((data, index) => {
+                    const particleCount = isMobile ? 5000 : 10000;
+                    const particles = new Float32Array(particleCount * 3);
+                    const color = new THREE.Color(data.color);
+
+                    const geometry = new THREE.BufferGeometry();
+                    const material = new THREE.PointsMaterial({
+                        color: color,
+                        size: isMobile ? 3 : 2,
+                        blending: THREE.AdditiveBlending,
+                        transparent: true,
+                        sizeAttenuation: true
+                    });
+
+                    const radius = 200 + index * 40;
+                    for (let i = 0; i < particleCount * 3; i += 3) {
+                        const theta = Math.random() * Math.PI * 2;
+                        const phi = Math.acos(Math.random() * 2 - 1);
+                        particles[i] = radius * Math.sin(phi) * Math.cos(theta);
+                        particles[i + 1] = radius * Math.sin(phi) * Math.sin(theta);
+                        particles[i + 2] = radius * Math.cos(phi);
+                    }
+
+                    geometry.setAttribute('position', new THREE.Float32BufferAttribute(particles, 3));
+                    const particleSystem = new THREE.Points(geometry, material);
+                    particleSystem.position.copy(data.position);
+                    particleSystem.userData.section = data.section;
+                    scene.add(particleSystem);
+                    quantumRealms.push(particleSystem);
+                });
             }
-        }
 
-        function onTouchEnd(event) {
-            if (event.changedTouches.length === 1) {
-                const touch = event.changedTouches[0];
+            function onMouseMove(event) {
+                mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+                const cursor = document.getElementById('quantum-cursor');
+                cursor.style.left = `${event.clientX}px`;
+                cursor.style.top = `${event.clientY}px`;
+
+                interactWithRealms();
+            }
+
+            function onTouchStart(event) {
+                if (event.touches.length === 1) {
+                    event.preventDefault();
+                    updateTouchPosition(event.touches[0]);
+                }
+            }
+
+            function onTouchMove(event) {
+                if (event.touches.length === 1) {
+                    event.preventDefault();
+                    updateTouchPosition(event.touches[0]);
+                }
+            }
+
+            function onTouchEnd(event) {
+                if (event.changedTouches.length === 1) {
+                    const touch = event.changedTouches[0];
+                    mouse.x = (touch.pageX / window.innerWidth) * 2 - 1;
+                    mouse.y = -(touch.pageY / window.innerHeight) * 2 + 1;
+                    onClick(event);
+                }
+            }
+
+            function updateTouchPosition(touch) {
                 mouse.x = (touch.pageX / window.innerWidth) * 2 - 1;
                 mouse.y = -(touch.pageY / window.innerHeight) * 2 + 1;
-                onClick(event);
+                interactWithRealms();
             }
-        }
 
-        function updateTouchPosition(touch) {
-            mouse.x = (touch.pageX / window.innerWidth) * 2 - 1;
-            mouse.y = -(touch.pageY / window.innerHeight) * 2 + 1;
-            interactWithRealms();
-        }
+            function onClick(event) {
+                raycaster.setFromCamera(mouse, camera);
+                const intersects = raycaster.intersectObjects(quantumRealms);
 
-        function onClick(event) {
-            raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(quantumRealms);
-
-            if (intersects.length > 0) {
-                const clickedRealm = intersects[0].object;
-                const sectionId = clickedRealm.userData.section;
-                navigateToSection(sectionId);
+                if (intersects.length > 0) {
+                    const clickedRealm = intersects[0].object;
+                    const sectionId = clickedRealm.userData.section;
+                    navigateToSection(sectionId);
+                }
             }
-        }
 
-        function interactWithRealms() {
-            raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(quantumRealms);
-            
-            quantumRealms.forEach(realm => {
-                gsap.to(realm.scale, {
-                    x: 1,
-                    y: 1,
-                    z: 1,
-                    duration: 0.5
+            function interactWithRealms() {
+                raycaster.setFromCamera(mouse, camera);
+                const intersects = raycaster.intersectObjects(quantumRealms);
+                
+                quantumRealms.forEach(realm => {
+                    gsap.to(realm.scale, {
+                        x: 1,
+                        y: 1,
+                        z: 1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
                 });
-            });
 
-            if (intersects.length > 0) {
-                const intersectedRealm = intersects[0].object;
-                gsap.to(intersectedRealm.scale, {
-                    x: 1.2,
-                    y: 1.2,
-                    z: 1.2,
-                    duration: 0.5
-                });
+                if (intersects.length > 0) {
+                    const intersectedRealm = intersects[0].object;
+                    gsap.to(intersectedRealm.scale, {
+                        x: 1.1,
+                        y: 1.1,
+                        z: 1.1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                }
             }
-        }
 
-        function navigateToSection(sectionId) {
-            const targetRealm = quantumRealms.find(realm => realm.userData.section === sectionId);
-            if (targetRealm) {
-                gsap.to(camera.position, {
-                    x: targetRealm.position.x,
-                    y: targetRealm.position.y,
-                    z: targetRealm.position.z + 200,
-                    duration: 2,
-                    ease: "power2.inOut",
-                    onUpdate: () => {
-                        camera.lookAt(targetRealm.position);
-                    },
-                    onComplete: () => {
-                        showContentPanel(sectionId);
+            function navigateToSection(sectionId) {
+                const targetRealm = quantumRealms.find(realm => realm.userData.section === sectionId);
+                if (targetRealm) {
+                    gsap.to(camera.position, {
+                        x: targetRealm.position.x,
+                        y: targetRealm.position.y,
+                        z: targetRealm.position.z + 200,
+                        duration: 2,
+                        ease: "power2.inOut",
+                        onUpdate: () => {
+                            camera.lookAt(targetRealm.position);
+                        },
+                        onComplete: () => {
+                            showContentPanel(sectionId);
+                        }
+                    });
+                }
+            }
+
+            function showContentPanel(sectionId) {
+                const sections = document.querySelectorAll('.content-section');
+                sections.forEach(section => {
+                    if (section.id === sectionId) {
+                        section.style.opacity = 1;
+                        section.style.pointerEvents = 'auto';
+                    } else {
+                        section.style.opacity = 0;
+                        section.style.pointerEvents = 'none';
                     }
                 });
             }
-        }
 
-        function showContentPanel(sectionId) {
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(section => {
-                if (section.id === sectionId) {
-                    section.style.opacity = 1;
-                    section.style.pointerEvents = 'auto';
-                } else {
-                    section.style.opacity = 0;
-                    section.style.pointerEvents = 'none';
-                }
-            });
-        }
-
-        function setupQuantumCursor() {
-            const cursor = document.getElementById('quantum-cursor');
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = `${e.clientX}px`;
-                cursor.style.top = `${e.clientY}px`;
-            });
-        }
-
-        function setupQuantumButtons() {
-            const buttons = document.querySelectorAll('.quantum-button');
-            buttons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const sectionId = button.getAttribute('data-section');
-                    navigateToSection(sectionId);
+            function setupQuantumCursor() {
+                const cursor = document.getElementById('quantum-cursor');
+                document.addEventListener('mousemove', (e) => {
+                    cursor.style.left = `${e.clientX}px`;
+                    cursor.style.top = `${e.clientY}px`;
                 });
-            });
-        }
+            }
 
-        function setupLanguageToggle() {
-            const langButtons = document.querySelectorAll('.lang-btn');
-            langButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const lang = btn.getAttribute('data-lang');
-                    changeLanguage(lang);
-                    langButtons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
+            function setupQuantumButtons() {
+                const buttons = document.querySelectorAll('.quantum-button');
+                buttons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const sectionId = button.getAttribute('data-section');
+                        navigateToSection(sectionId);
+                    });
                 });
-            });
-        }
+            }
 
-        function changeLanguage(lang) {
-            document.querySelectorAll('[data-en][data-ja]').forEach(el => {
-                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                    el.placeholder = el.getAttribute(`data-${lang}`);
-                } else {
-                    el.textContent = el.getAttribute(`data-${lang}`);
-                }
-            });
-            document.documentElement.lang = lang;
-        }
+            function setupLanguageToggle() {
+                const langButtons = document.querySelectorAll('.lang-btn');
+                langButtons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const lang = btn.getAttribute('data-lang');
+                        changeLanguage(lang);
+                        langButtons.forEach(b => {
+                            b.classList.remove('active');
+                            b.setAttribute('aria-pressed', 'false');
+                        });
+                        btn.classList.add('active');
+                        btn.setAttribute('aria-pressed', 'true');
+                    });
+                });
+            }
 
-        function setupContactForm() {
-            const form = document.getElementById('contact-form');
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const formData = new FormData(form);
-                const data = Object.fromEntries(formData);
+            function changeLanguage(lang) {
+                document.querySelectorAll('[data-en][data-ja]').forEach(el => {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = el.getAttribute(`data-${lang}`);
+                    } else {
+                        el.textContent = el.getAttribute(`data-${lang}`);
+                    }
+                });
+                document.documentElement.lang = lang;
+            }
+
+            function setupContactForm() {
+                const form = document.getElementById('contact-form');
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const formData = new FormData(form);
+                    const data = Object.fromEntries(formData);
+                    
+                    // Here you would typically send the data to a server
+                    console.log('Form data:', data);
+
+                    // Simulate sending an email
+                    alert('Thank you for your message! We will contact you soon.');
+                    form.reset();
+                });
+            }
+
+            function setupPricingDetails() {
+                const showButtons = document.querySelectorAll('.show-details-btn');
+                const closeButtons = document.querySelectorAll('.close-details-btn');
                 
-                // Here you would typically send the data to a server
-                console.log('Form data:', data);
-
-                // Simulate sending an email
-                alert('Thank you for your message! We will contact you soon.');
-                form.reset();
-            });
-        }
-
-        function setupPricingDetails() {
-            const showButtons = document.querySelectorAll('.show-details-btn');
-            const closeButtons = document.querySelectorAll('.close-details-btn');
-            
-            showButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const details = e.target.nextElementSibling;
-                    details.classList.add('active');
+                showButtons.forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const details = e.target.nextElementSibling;
+                        details.hidden = false;
+                        e.target.setAttribute('aria-expanded', 'true');
+                    });
                 });
-            });
 
-            closeButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const details = e.target.parentElement;
-                    details.classList.remove('active');
+                closeButtons.forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const details = e.target.closest('.pricing-details');
+                        details.hidden = true;
+                        details.previousElementSibling.setAttribute('aria-expanded', 'false');
+                    });
                 });
-            });
-        }
+            }
 
-        function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }
+            function setupKeyboardNavigation() {
+                const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+                const modal = document.querySelector('.content-panel');
 
-        function animate() {
-            requestAnimationFrame(animate);
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Tab' || e.keyCode === 9) {
+                        if (e.shiftKey) { // Shift + Tab
+                            if (document.activeElement === firstFocusableElement) {
+                                lastFocusableElement.focus();
+                                e.preventDefault();
+                            }
+                        } else { // Tab
+                            if (document.activeElement === lastFocusableElement) {
+                                firstFocusableElement.focus();
+                                e.preventDefault();
+                            }
+                        }
+                    }
 
-            const time = performance.now() * 0.0005;
+                    if (e.key === 'Escape' || e.keyCode === 27) {
+                        // Close any open modals or return to home
+                        navigateToSection('home');
+                    }
+                });
 
-            particles.rotation.y = time * 0.05;
-            particles.rotation.x = time * 0.075;
+                const firstFocusableElement = modal.querySelectorAll(focusableElements)[0];
+                const focusableContent = modal.querySelectorAll(focusableElements);
+                const lastFocusableElement = focusableContent[focusableContent.length - 1];
+            }
 
-            quantumRealms.forEach((realm, index) => {
-                realm.rotation.y += 0.0005 * (index + 1);
-                realm.rotation.x += 0.00025 * (index + 1);
+            function onWindowResize() {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
 
-                const positions = realm.geometry.attributes.position.array;
-                for (let i = 0; i < positions.length; i += 3) {
-                    positions[i] += Math.sin(time + i) * 0.02;
-                    positions[i + 1] += Math.cos(time + i) * 0.02;
-                    positions[i + 2] += Math.sin(time + i) * 0.02;
-                }
-                realm.geometry.attributes.position.needsUpdate = true;
-            });
+            function animate() {
+                requestAnimationFrame(animate);
 
-            renderer.render(scene, camera);
-        }
+                const time = performance.now() * 0.0005;
 
-        init();
+                particles.rotation.y = time * 0.05;
+                particles.rotation.x = time * 0.075;
+
+                quantumRealms.forEach((realm, index) => {
+                    realm.rotation.y += 0.0005 * (index + 1);
+                    realm.rotation.x += 0.00025 * (index + 1);
+
+                    const positions = realm.geometry.attributes.position.array;
+                    for (let i = 0; i < positions.length; i += 3) {
+                        positions[i] += Math.sin(time + i) * 0.02;
+                        positions[i + 1] += Math.cos(time + i) * 0.02;
+                        positions[i + 2] += Math.sin(time + i) * 0.02;
+                    }
+                    realm.geometry.attributes.position.needsUpdate = true;
+                });
+
+                renderer.render(scene, camera);
+            }
+
+            function displayErrorMessage(message) {
+                const errorContainer = document.getElementById('error-message');
+                errorContainer.textContent = message;
+                errorContainer.style.display = 'block';
+            }
+
+            init();
+        });
     </script>
 </body>
 </html>
