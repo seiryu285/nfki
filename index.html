@@ -567,11 +567,11 @@
             }
 
             function createQuantumParticles() {
-                const particleCount = isMobile ? 15000 : 30000;
+                const particleCount = isMobile ? 2000 : 5000;
                 const particleGeometry = new THREE.BufferGeometry();
                 const particleMaterial = new THREE.PointsMaterial({
                     color: 0x00ffff,
-                    size: isMobile ? 6 : 4,
+                    size: isMobile ? 4 : 3,
                     blending: THREE.AdditiveBlending,
                     transparent: true,
                     sizeAttenuation: true,
@@ -606,14 +606,14 @@
 
             function createQuantumRealms() {
                 realmData.forEach((data, index) => {
-                    const particleCount = isMobile ? 5000 : 10000;
+                    const particleCount = isMobile ? 1000 : 3000;
                     const particles = new Float32Array(particleCount * 3);
                     const color = new THREE.Color(data.color);
 
                     const geometry = new THREE.BufferGeometry();
                     const material = new THREE.PointsMaterial({
                         color: color,
-                        size: isMobile ? 10 : 8,
+                        size: isMobile ? 20 : 16,
                         blending: THREE.AdditiveBlending,
                         transparent: true,
                         sizeAttenuation: true
