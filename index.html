@@ -83,7 +83,7 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background-color: rgba(0, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.3);
             pointer-events: none;
             z-index: 9999;
             mix-blend-mode: screen;
@@ -263,7 +263,7 @@
             }
             #quantum-hud {
                 position: fixed;
-                bottom                : 0;
+                bottom: 0;
                 left: 0;
                 top: auto;
                 width: 100%;
@@ -378,7 +378,7 @@
     <div class="content-section" id="about">
         <div class="content-panel">
             <h2 data-en="About Us" data-ja="会社概要">会社概要</h2>
-            <p data-en="Nexus is a pioneering company specializing in creating immersive 3D web experiences. Our team of visionary developers and designers pushes the boundaries of interactive digital realms, offering custom web solutions that bring your ideas to life in three dimensions." data-ja="Nexusは、没入型3Dウェブ体験の創造を専門とする先駆的な会社です。先見性のある開発者とデザイナーのチームが、インタラクティブなデジタル領域の可能性を押し広げ、お客様のアイデアを3次元で実現するカスタムウェブソリューションを提供しています。">Nexusは、没入型3Dウェブ体験の創造を専門とする先駆的な会社です。先見性のある開発者とデザイナーのチームが、インタラクティブなデジタル領域の可能性を押し広げ、お客様のアイデアを3次元で実現するカスタムウェブソリューションを提供しています。</p>
+            <p data-en="Nexus is a design studio specializing in creating immersive 3D web experiences and improving UX. Our team of developers and designers pushes the boundaries of interactive digital realms, offering custom web solutions that bring your ideas to life in three dimensions." data-ja="Nexusは、没入型3Dウェブ体験の創造とUXの向上を専門とするデザインスタジオです。開発者とデザイナーのチームが、インタラクティブなデジタル領域の可能性を押し広げ、お客様のアイデアを3次元で実現するカスタムウェブソリューションを提供しています。">Nexusは、没入型3Dウェブ体験の創造とUXの向上を専門とするデザインスタジオです。開発者とデザイナーのチームが、インタラクティブなデジタル領域の可能性を押し広げ、お客様のアイデアを3次元で実現するカスタムウェブソリューションを提供しています。</p>
         </div>
     </div>
 
@@ -406,7 +406,7 @@
                     <button class="show-details-btn" data-en="Learn More" data-ja="詳細を見る">詳細を見る</button>
                     <div class="pricing-details">
                         <button class="close-details-btn">&times;</button>
-                        <img                        src="/api/placeholder/300/150" alt="Individual Plan Sample">
+                        <img src="/api/placeholder/300/150" alt="Individual Plan Sample">
                         <p data-en="Perfect for personal portfolios, small business websites, or interactive product showcases. Our individual plan offers a fully custom 3D web experience tailored to your unique vision." data-ja="個人ポートフォリオ、小規模ビジネスのウェブサイト、またはインタラクティブな製品紹介に最適です。個人向けプランでは、お客様独自のビジョンに合わせた完全カスタムの3Dウェブ体験を提供します。">個人ポートフォリオ、小規模ビジネスのウェブサイト、またはインタラクティブな製品紹介に最適です。個人向けプランでは、お客様独自のビジョンに合わせた完全カスタムの3Dウェブ体験を提供します。</p>
                     </div>
                 </div>
@@ -537,7 +537,8 @@
                 const material = new THREE.PointsMaterial({
                     color: color,
                     size: isMobile ? 3 : 2,
-                    blending: THREE.AdditiveBlending,                    transparent: true,
+                    blending: THREE.AdditiveBlending,
+                    transparent: true,
                     sizeAttenuation: true
                 });
 
@@ -630,9 +631,9 @@
             if (intersects.length > 0) {
                 const intersectedRealm = intersects[0].object;
                 gsap.to(intersectedRealm.scale, {
-                    x: 1.2,
-                    y: 1.2,
-                    z: 1.2,
+                    x: 2,
+                    y: 2,
+                    z: 2,
                     duration: 0.5
                 });
             }
