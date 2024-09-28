@@ -12,8 +12,8 @@
             overflow: hidden;
             width: 100%;
             height: 100%;
-            background-color: #000010;
-            color: #00ffff;
+            background-color: #ffffff;
+            color: #000000;
         }
         #universe-container {
             position: fixed;
@@ -37,24 +37,22 @@
             overflow-y: auto;
         }
         .content-panel {
-            background: rgba(0, 20, 40, 0.7);
+            background: rgba(255, 255, 255, 0.8);
             padding: 2rem;
             border-radius: 10px;
             max-width: 800px;
             text-align: center;
         }
         .content-panel h2 {
-            color: #00ffff;
+            color: #000000;
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
         .content-panel p {
-            color: #ffffff;
+            color: #000000;
             font-size: 1.1rem;
             line-height: 1.6;
             margin-bottom: 1rem;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
         #quantum-hud {
             position: fixed;
@@ -66,27 +64,33 @@
             display: inline-block;
             margin: 5px;
             padding: 10px 15px;
-            background-color: rgba(0, 255, 255, 0.1);
-            border: 1px solid #00ffff;
+            background-color: rgba(0, 0, 0, 0.1);
+            border: 1px solid #000000;
             border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
-            color: #00ffff;
+            color: #000000;
         }
         .quantum-button:hover {
-            background-color: rgba(0, 255, 255, 0.3);
+            background-color: rgba(0, 0, 0, 0.3);
             transform: scale(1.05);
         }
         #quantum-cursor {
             position: fixed;
-            width: 20px;
-            height: 20px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: rgba(0, 0, 0, 0.3);
             pointer-events: none;
             z-index: 9999;
-            mix-blend-mode: screen;
+            mix-blend-mode: multiply;
+            transition: transform 0.3s ease;
+            opacity: 0;
+        }
+        #quantum-cursor.hover {
+            transform: scale(1.5);
+            opacity: 1;
         }
         #language-toggle {
             position: fixed;
@@ -95,19 +99,20 @@
             z-index: 1000;
         }
         .lang-btn {
-            background-color: rgba(0, 255, 255, 0.1);
-            border: 1px solid #00ffff;
-            color: #00ffff;
+            background-color: rgba(0, 0, 0, 0.1);
+            border: 1px solid #000000;
+            color: #000000;
             padding: 5px 10px;
             margin-left: 5px;
             cursor: pointer;
             font-family: 'Orbitron', 'Noto Sans JP', sans-serif;
         }
         .lang-btn:hover {
-            background-color: rgba(0, 255, 255, 0.3);
+            background-color: rgba(0, 0, 0, 0.3);
         }
         .lang-btn.active {
-            background-color: rgba(0, 255, 255, 0.5);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #ffffff;
         }
         #pricing-container {
             width: 100%;
@@ -121,91 +126,35 @@
             gap: 20px;
         }
         .pricing-item {
-            position: relative;
-            background: rgba(0, 255, 255, 0.1);
-            border: 2px solid rgba(0, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(0, 0, 0, 0.5);
             border-radius: 15px;
             padding: 20px;
             text-align: center;
             transition: all 0.3s ease;
-            overflow: hidden;
         }
         .pricing-item:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
         }
         .pricing-item h3 {
-            color: #00ffff;
+            color: #000000;
             font-size: 1.8em;
             margin-bottom: 15px;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
         .pricing-item .price {
-            color: #ffffff;
+            color: #000000;
             font-size: 2.5em;
             margin-bottom: 20px;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
         }
         .pricing-item ul {
             list-style-type: none;
             padding: 0;
             margin-bottom: 20px;
-            color: #ffffff;
+            color: #000000;
         }
         .pricing-item li {
             margin-bottom: 10px;
-        }
-        .pricing-details {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 20, 40, 0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transform: translateY(100%);
-            transition: transform 0.3s ease-in-out;
-        }
-        .pricing-details.active {
-            transform: translateY(0);
-        }
-        .pricing-details img {
-            max-width: 80%;
-            max-height: 150px;
-            object-fit: contain;
-            margin-bottom: 10px;
-        }
-        .pricing-details p {
-            text-align: left;
-            padding: 0 20px;
-            font-size: 0.9em;
-            max-height: 150px;
-            overflow-y: auto;
-        }
-        .show-details-btn {
-            background: rgba(0, 255, 255, 0.2);
-            border: 1px solid #00ffff;
-            color: #00ffff;
-            padding: 5px 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-        .show-details-btn:hover {
-            background: rgba(0, 255, 255, 0.4);
-        }
-        .close-details-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            color: #00ffff;
-            font-size: 1.5em;
-            cursor: pointer;
         }
         .contact-form {
             display: flex;
@@ -219,35 +168,35 @@
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
-            background: rgba(0, 255, 255, 0.1);
-            border: 1px solid #00ffff;
-            color: #ffffff;
+            background: rgba(0, 0, 0, 0.1);
+            border: 1px solid #000000;
+            color: #000000;
             font-family: 'Orbitron', sans-serif;
         }
         .contact-form button {
-            background: rgba(0, 255, 255, 0.2);
-            border: 1px solid #00ffff;
-            color: #00ffff;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid #000000;
+            color: #000000;
             padding: 10px 20px;
             font-size: 1em;
             cursor: pointer;
             transition: all 0.3s ease;
         }
         .contact-form button:hover {
-            background: rgba(0, 255, 255, 0.4);
+            background: rgba(0, 0, 0, 0.4);
         }
         #email-contact {
             margin-top: 20px;
             font-size: 1.2em;
-            color: #00ffff;
+            color: #000000;
         }
         #email-contact a {
-            color: #00ffff;
+            color: #000000;
             text-decoration: none;
             transition: all 0.3s ease;
         }
         #email-contact a:hover {
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
         @media (max-width: 768px) {
@@ -269,7 +218,7 @@
                 width: 100%;
                 display: flex;
                 justify-content: space-around;
-                background: rgba(0, 20, 40, 0.7);
+                background: rgba(255, 255, 255, 0.7);
                 padding: 10px 0;
             }
             .quantum-button {
@@ -308,7 +257,7 @@
                 width: 100%;
                 text-align: center;
                 padding: 10px 0;
-                background: rgba(0, 20, 40, 0.7);
+                background: rgba(255, 255, 255, 0.7);
             }
         }
 
@@ -403,12 +352,6 @@
                         <li data-en="Interactive elements" data-ja="インタラクティブな要素">インタラクティブな要素</li>
                         <li data-en="Basic 3D modeling" data-ja="基本的な3Dモデリング">基本的な3Dモデリング</li>
                     </ul>
-                    <button class="show-details-btn" data-en="Learn More" data-ja="詳細を見る">詳細を見る</button>
-                    <div class="pricing-details">
-                        <button class="close-details-btn">&times;</button>
-                        <img src="/api/placeholder/300/150" alt="Individual Plan Sample">
-                        <p data-en="Perfect for personal portfolios, small business websites, or interactive product showcases. Our individual plan offers a fully custom 3D web experience tailored to your unique vision." data-ja="個人ポートフォリオ、小規模ビジネスのウェブサイト、またはインタラクティブな製品紹介に最適です。個人向けプランでは、お客様独自のビジョンに合わせた完全カスタムの3Dウェブ体験を提供します。">個人ポートフォリオ、小規模ビジネスのウェブサイト、またはインタラクティブな製品紹介に最適です。個人向けプランでは、お客様独自のビジョンに合わせた完全カスタムの3Dウェブ体験を提供します。</p>
-                    </div>
                 </div>
                 <div class="pricing-item">
                     <h3 data-en="Corporate" data-ja="法人向け">法人向け</h3>
@@ -418,12 +361,6 @@
                         <li data-en="Complex interactive applications" data-ja="複雑なインタラクティブアプリケーション">複雑なインタラクティブアプリケーション</li>
                         <li data-en="VR/AR compatibility" data-ja="VR/AR互換性">VR/AR互換性</li>
                     </ul>
-                    <button class="show-details-btn" data-en="Learn More" data-ja="詳細を見る">詳細を見る</button>
-                    <div class="pricing-details">
-                        <button class="close-details-btn">&times;</button>
-                        <img src="/api/placeholder/300/150" alt="Corporate Plan Sample">
-                        <p data-en="Designed for businesses seeking to make a lasting impression. Our corporate plan includes advanced 3D modeling, complex interactivity, and seamless VR/AR integration for immersive brand experiences." data-ja="印象的なプレゼンスを求める企業向けに設計されています。法人向けプランには、高度な3Dモデリング、複雑なインタラクティビティ、没入型のブランド体験のためのシームレスなVR/AR統合が含まれています。">印象的なプレゼンスを求める企業向けに設計されています。法人向けプランには、高度な3Dモデリング、複雑なインタラクティビティ、没入型のブランド体験のためのシームレスなVR/AR統合が含まれています。</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -460,11 +397,11 @@
         let isMobile = false;
 
         const realmData = [
-            { color: 0x00ffff, position: new THREE.Vector3(0, 0, -1000), section: "home" },
-            { color: 0xff00ff, position: new THREE.Vector3(800, 400, -1500), section: "about" },
-            { color: 0xffff00, position: new THREE.Vector3(-600, -200, -2000), section: "services" },
-            { color: 0x00ff00, position: new THREE.Vector3(400, -500, -2500), section: "pricing" },
-            { color: 0xff8000, position: new THREE.Vector3(-200, 600, -3000), section: "contact" }
+            { color: 0x000000, position: new THREE.Vector3(0, 0, -1000), section: "home" },
+            { color: 0x000000, position: new THREE.Vector3(800, 400, -1500), section: "about" },
+            { color: 0x000000, position: new THREE.Vector3(-600, -200, -2000), section: "services" },
+            { color: 0x000000, position: new THREE.Vector3(400, -500, -2500), section: "pricing" },
+            { color: 0x000000, position: new THREE.Vector3(-200, 600, -3000), section: "contact" }
         ];
 
         function init() {
@@ -500,7 +437,6 @@
             setupQuantumButtons();
             setupLanguageToggle();
             setupContactForm();
-            setupPricingDetails();
 
             animate();
         }
@@ -509,7 +445,7 @@
             const particleCount = isMobile ? 25000 : 50000;
             const particleGeometry = new THREE.BufferGeometry();
             const particleMaterial = new THREE.PointsMaterial({
-                color: 0x00ffff,
+                color: 0x000000,
                 size: isMobile ? 3 : 2,
                 blending: THREE.AdditiveBlending,
                 transparent: true,
@@ -564,44 +500,38 @@
             });
         }
 
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
         function onMouseMove(event) {
             mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
             mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-            const cursor = document.getElementById('quantum-cursor');
-            cursor.style.left = `${event.clientX}px`;
-            cursor.style.top = `${event.clientY}px`;
-
             interactWithRealms();
+            moveQuantumCursor(event);
         }
 
         function onTouchStart(event) {
-            if (event.touches.length === 1) {
-                event.preventDefault();
-                updateTouchPosition(event.touches[0]);
+            if (event.touches.length > 0) {
+                mouse.x = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
             }
         }
 
         function onTouchMove(event) {
-            if (event.touches.length === 1) {
-                event.preventDefault();
-                updateTouchPosition(event.touches[0]);
+            event.preventDefault();
+            if (event.touches.length > 0) {
+                mouse.x = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
             }
+            interactWithRealms();
         }
 
         function onTouchEnd(event) {
-            if (event.changedTouches.length === 1) {
-                const touch = event.changedTouches[0];
-                mouse.x = (touch.pageX / window.innerWidth) * 2 - 1;
-                mouse.y = -(touch.pageY / window.innerHeight) * 2 + 1;
-                onClick(event);
-            }
-        }
-
-        function updateTouchPosition(touch) {
-            mouse.x = (touch.pageX / window.innerWidth) * 2 - 1;
-            mouse.y = -(touch.pageY / window.innerHeight) * 2 + 1;
-            interactWithRealms();
+            onClick(event.changedTouches[0]);
         }
 
         function onClick(event) {
@@ -631,9 +561,9 @@
             if (intersects.length > 0) {
                 const intersectedRealm = intersects[0].object;
                 gsap.to(intersectedRealm.scale, {
-                    x: 2,
-                    y: 2,
-                    z: 2,
+                    x: 1.5,
+                    y: 1.5,
+                    z: 1.5,
                     duration: 0.5
                 });
             }
@@ -645,28 +575,35 @@
                 gsap.to(camera.position, {
                     x: targetRealm.position.x,
                     y: targetRealm.position.y,
-                    z: targetRealm.position.z + 200,
+                    z: targetRealm.position.z + 500,
                     duration: 2,
                     ease: "power2.inOut",
                     onUpdate: () => {
                         camera.lookAt(targetRealm.position);
                     },
                     onComplete: () => {
-                        showContentPanel(sectionId);
+                        showContent(sectionId);
                     }
                 });
             }
         }
 
-        function showContentPanel(sectionId) {
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(section => {
-                if (section.id === sectionId) {
-                    section.style.opacity = 1;
-                    section.style.pointerEvents = 'auto';
-                } else {
-                    section.style.opacity = 0;
-                    section.style.pointerEvents = 'none';
+        function showContent(sectionId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.pointerEvents = 'none';
+            });
+
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.style.opacity = '1';
+                targetSection.style.pointerEvents = 'auto';
+            }
+
+            document.querySelectorAll('.quantum-button').forEach(button => {
+                button.classList.remove('active');
+                if (button.dataset.section === sectionId) {
+                    button.classList.add('active');
                 }
             });
         }
@@ -674,16 +611,20 @@
         function setupQuantumCursor() {
             const cursor = document.getElementById('quantum-cursor');
             document.addEventListener('mousemove', (e) => {
-                cursor.style.left = `${e.clientX}px`;
-                cursor.style.top = `${e.clientY}px`;
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+
+            document.querySelectorAll('a, button, .quantum-button, input, textarea, select').forEach(item => {
+                item.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                item.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
             });
         }
 
         function setupQuantumButtons() {
-            const buttons = document.querySelectorAll('.quantum-button');
-            buttons.forEach(button => {
+            document.querySelectorAll('.quantum-button').forEach(button => {
                 button.addEventListener('click', () => {
-                    const sectionId = button.getAttribute('data-section');
+                    const sectionId = button.dataset.section;
                     navigateToSection(sectionId);
                 });
             });
@@ -691,66 +632,36 @@
 
         function setupLanguageToggle() {
             const langButtons = document.querySelectorAll('.lang-btn');
-            langButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const lang = btn.getAttribute('data-lang');
+            langButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const lang = button.dataset.lang;
                     changeLanguage(lang);
-                    langButtons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
+                    langButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
                 });
             });
         }
 
         function changeLanguage(lang) {
-            document.querySelectorAll('[data-en][data-ja]').forEach(el => {
-                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                    el.placeholder = el.getAttribute(`data-${lang}`);
-                } else {
-                    el.textContent = el.getAttribute(`data-${lang}`);
-                }
+            document.querySelectorAll('[data-en]').forEach(element => {
+                element.textContent = element.getAttribute(`data-${lang}`);
             });
-            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-ja]').forEach(element => {
+                element.textContent = element.getAttribute(`data-${lang}`);
+            });
+            document.querySelectorAll('input[placeholder], textarea[placeholder]').forEach(element => {
+                element.placeholder = element.getAttribute(`data-${lang}`);
+            });
         }
 
         function setupContactForm() {
             const form = document.getElementById('contact-form');
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const formData = new FormData(form);
-                const data = Object.fromEntries(formData);
-                
-                // Here you would typically send the data to a server
-                console.log('Form data:', data);
-
-                // Simulate sending an email
-                alert('Thank you for your message! We will contact you soon.');
+                // Here you would typically send the form data to a server
+                alert('Thank you for your message. We will get back to you soon!');
                 form.reset();
             });
-        }
-
-        function setupPricingDetails() {
-            const showButtons = document.querySelectorAll('.show-details-btn');
-            const closeButtons = document.querySelectorAll('.close-details-btn');
-            
-            showButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const details = e.target.nextElementSibling;
-                    details.classList.add('active');
-                });
-            });
-
-            closeButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const details = e.target.parentElement;
-                    details.classList.remove('active');
-                });
-            });
-        }
-
-        function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
         }
 
         function animate() {
