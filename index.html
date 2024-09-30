@@ -14,7 +14,7 @@
             height: 100%;
             background-color: #ffffff;
             color: #000000;
-            cursor: none; /* マウスポインターを非表示にする */
+            cursor: none;
         }
         #universe-container {
             position: fixed;
@@ -367,6 +367,7 @@
         let quantumRealms = [];
         let currentRealm = 0;
         let isMobile = false;
+        let isTransitioning = false;
 
         const realmData = [
             { color: 0x000000, position: new THREE.Vector3(0, 0, -1000), section: "home" },
@@ -506,6 +507,8 @@
         }
 
         function onClick(event) {
+            if (isTransitioning) return;
+
             raycaster.setFromCamera(mouse, camera);
             const intersects = raycaster.intersectObjects(quantumRealms);
 
@@ -517,6 +520,8 @@
         }
 
         function interactWithRealms() {
+            if (isTransitioning) return;
+
             raycaster.setFromCamera(mouse, camera);
             const intersects = raycaster.intersectObjects(quantumRealms);
             
@@ -541,6 +546,16 @@
         }
 
         function navigateToSection(sectionId) {
+            if (isTransitioning) return;
+
+            isTransitioning = true;
+
+            // Hide all content immediately
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.pointerEvents = 'none';
+            });
+
             const targetRealm = quantumRealms.find(realm => realm.userData.section === sectionId);
             if (targetRealm) {
                 gsap.to(camera.position, {
@@ -554,17 +569,13 @@
                     },
                     onComplete: () => {
                         showContent(sectionId);
+                        isTransitioning = false;
                     }
                 });
             }
         }
 
         function showContent(sectionId) {
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.style.opacity = '0';
-                section.style.pointerEvents = 'none';
-            });
-
             const targetSection = document.getElementById(sectionId);
             if (targetSection) {
                 targetSection.style.opacity = '1';
@@ -595,6 +606,7 @@
         function setupQuantumButtons() {
             document.querySelectorAll('.quantum-button').forEach(button => {
                 button.addEventListener('click', () => {
+                    if (isTransitioning) return;
                     const sectionId = button.dataset.section;
                     navigateToSection(sectionId);
                 });
