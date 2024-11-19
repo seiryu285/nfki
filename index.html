@@ -191,7 +191,6 @@
         .contact-item a:hover {
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
-
         @media (max-width: 768px) {
             .content-panel {
                 padding: 1rem;
@@ -244,7 +243,6 @@
                 font-size: 1em;
             }
         }
-
         @media (-webkit-min-device-pixel-ratio: 2) and (min-width: 1024px) {
             body {
                 font-size: 18px;
@@ -276,85 +274,112 @@
                 font-size: 1.3em;
             }
         }
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        #splash-screen h1 {
+            font-size: 48px;
+            color: black;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            font-family: 'Orbitron', sans-serif;
+        }
+        #main-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="universe-container"></div>
-    <div id="quantum-cursor"></div>
-    <div id="language-toggle">
-        <button class="lang-btn" data-lang="en">EN</button>
-        <button class="lang-btn active" data-lang="ja">JP</button>
-    </div>
-    <div id="quantum-hud">
-        <div class="quantum-button" data-section="home" data-en="HOME" data-ja="ホーム">ホーム</div>
-        <div class="quantum-button" data-section="about" data-en="ABOUT" data-ja="概要">概要</div>
-        <div class="quantum-button" data-section="services" data-en="SERVICES" data-ja="サービス">サービス</div>
-        <div class="quantum-button" data-section="pricing" data-en="PRICING" data-ja="料金">料金</div>
-        <div class="quantum-button" data-section="contact" data-en="CONTACT" data-ja="問合せ">問合せ</div>
+    <div id="splash-screen">
+        <h1>NEXUS</h1>
     </div>
 
-    <div class="content-section" id="home">
-        <div class="content-panel">
-            <h2 data-en="Welcome to Nexus" data-ja="Nexusへようこそ">Nexusへようこそ</h2>
-            <p data-en="Pioneering the future of 3D web experiences. We specialize in creating immersive websites and interactive web applications optimized for modern platforms." data-ja="3Dウェブ体験の未来を切り開きます。最新のプラットフォーム向けの没入型ウェブサイトやインタラクティブなウェブアプリケーションの制作を専門としています。">3Dウェブ体験の未来を切り開きます。最新のプラットフォーム向けの没入型ウェブサイトやインタラクティブなウェブアプリケーションの制作を専門としています。</p>
+    <div id="main-content">
+        <div id="universe-container"></div>
+        <div id="quantum-cursor"></div>
+        <div id="language-toggle">
+            <button class="lang-btn" data-lang="en">EN</button>
+            <button class="lang-btn active" data-lang="ja">JP</button>
         </div>
-    </div>
-
-    <div class="content-section" id="about">
-        <div class="content-panel">
-            <h2 data-en="About Us" data-ja="会社概要">会社概要</h2>
-            <p data-en="Nexus is a design studio specializing in creating immersive 3D web experiences and improving UX. Our team of developers and designers pushes the boundaries of interactive digital realms, offering custom web solutions that bring your ideas to life in three dimensions." data-ja="Nexusは、没入型3Dウェブ体験の創造とUXの向上を専門とするデザインスタジオです。開発者とデザイナーのチームが、インタラクティブなデジタル領域の可能性を押し広げ、お客様のアイデアを3次元で実現するカスタムウェブソリューションを提供しています。">Nexusは、没入型3Dウェブ体験の創造とUXの向上を専門とするデザインスタジオです。開発者とデザイナーのチームが、インタラクティブなデジタル領域の可能性を押し広げ、お客様のアイデアを3次元で実現するカスタムウェブソリューションを提供しています。</p>
+        <div id="quantum-hud">
+            <div class="quantum-button" data-section="home" data-en="HOME" data-ja="ホーム">ホーム</div>
+            <div class="quantum-button" data-section="about" data-en="ABOUT" data-ja="概要">概要</div>
+            <div class="quantum-button" data-section="services" data-en="SERVICES" data-ja="サービス">サービス</div>
+            <div class="quantum-button" data-section="pricing" data-en="PRICING" data-ja="料金">料金</div>
+            <div class="quantum-button" data-section="contact" data-en="CONTACT" data-ja="問合せ">問合せ</div>
         </div>
-    </div>
-
-    <div class="content-section" id="services">
-        <div class="content-panel">
-            <h2 data-en="Our Services" data-ja="サービス">サービス</h2>
-            <p data-en="1. 3D Web Development: Building immersive websites optimized for 3D and VR experiences." data-ja="1. 3Dウェブ開発：3DやVR体験に最適化された没入型ウェブサイトの構築。">1. 3Dウェブ開発：3DやVR体験に最適化された没入型ウェブサイトの構築。</p>
-            <p data-en="2. Interactive Web Applications: Creating engaging and dynamic web-based applications." data-ja="2. インタラクティブウェブアプリケーション：魅力的でダイナミックなウェブベースのアプリケーションの作成。">2. インタラクティブウェブアプリケーション：魅力的でダイナミックなウェブベースのアプリケーションの作成。</p>
-            <p data-en="3. Custom 3D Solutions: Tailored 3D solutions for various industries and specific needs." data-ja="3. カスタム3Dソリューション：様々な業界や特定のニーズに合わせたテーラーメイドの3Dソリューション。">3. カスタム3Dソリューション：様々な業界や特定のニーズに合わせたテーラーメイドの3Dソリューション。</p>
-            <p data-en="4. WebGL and Three.js Development: Leveraging cutting-edge web technologies for stunning 3D graphics." data-ja="4. WebGLとThree.js開発：最先端のウェブ技術を活用した驚異的な3Dグラフィックス。">4. WebGLとThree.js開発：最先端のウェブ技術を活用した驚異的な3Dグラフィックス。</p>
+        <div class="content-section" id="home">
+            <div class="content-panel">
+                <h2 data-en="Welcome to Nexus" data-ja="Nexusへようこそ">Nexusへようこそ</h2>
+                <p data-en="Pioneering the future of spatial computing and 3D web experiences. We specialize in enhancing UX for spatial computing platforms and creating immersive websites and interactive web applications." data-ja="空間コンピューティングと3Dウェブ体験の未来を切り開きます。空間コンピューティングプラットフォーム向けのUX向上と、没入型ウェブサイトやインタラクティブなウェブアプリケーションの制作を専門としています。">空間コンピューティングと3Dウェブ体験の未来を切り開きます。空間コンピューティングプラットフォーム向けのUX向上と、没入型ウェブサイトやインタラクティブなウェブアプリケーションの制作を専門としています。</p>
+            </div>
         </div>
-    </div>
-
-    <div class="content-section" id="pricing">
-        <div id="pricing-container">
-            <div class="pricing-grid">
-                <div class="pricing-item">
-                    <h3 data-en="Individual/Small Scale" data-ja="個人/小規模開発">個人/小規模開発</h3>
-                    <div class="price" data-en="From ¥300,000" data-ja="30万円から">30万円から</div>
-                    <ul>
-                        <li data-en="Custom 3D web development" data-ja="カスタム3Dウェブ開発">カスタム3Dウェブ開発</li>
-                        <li data-en="Interactive elements" data-ja="インタラクティブな要素">インタラクティブな要素</li>
-                        <li data-en="Basic 3D modeling" data-ja="基本的な3Dモデリング">基本的な3Dモデリング</li>
-                    </ul>
-                </div>
-                <div class="pricing-item">
-                    <h3 data-en="Corporate" data-ja="法人向け">法人向け</h3>
-                    <div class="price" data-en="From ¥500,000" data-ja="50万円から">50万円から</div>
-                    <ul>
-                        <li data-en="Advanced 3D web solutions" data-ja="高度な3Dウェブソリューション">高度な3Dウェブソリューション</li>
-                        <li data-en="Complex interactive applications" data-ja="複雑なインタラクティブアプリケーション">複雑なインタラクティブアプリケーション</li>
-                        <li data-en="VR/AR compatibility" data-ja="VR/AR互換性">VR/AR互換性</li>
-                    </ul>
+        <div class="content-section" id="about">
+            <div class="content-panel">
+                <h2 data-en="About Us" data-ja="会社概要">会社概要</h2>
+                <p data-en="Nexus is a design studio specializing in enhancing UX for spatial computing and creating immersive 3D web experiences. Our team of developers and designers pushes the boundaries of interactive digital realms, offering custom solutions that bring your ideas to life in three-dimensional and spatial environments." data-ja="Nexusは、空間コンピューティング向けのUX向上と没入型3Dウェブ体験の創造を専門とするデザインスタジオです。開発者とデザイナーのチームが、インタラクティブなデジタル領域の可能性を押し広げ、お客様のアイデアを3次元および空間環境で実現するカスタムソリューションを提供しています。">Nexusは、空間コンピューティング向けのUX向上と没入型3Dウェブ体験の創造を専門とするデザインスタジオです。開発者とデザイナーのチームが、インタラクティブなデジタル領域の可能性を押し広げ、お客様のアイデアを3次元および空間環境で実現するカスタムソリューションを提供しています。</p>
+            </div>
+        </div>
+        <div class="content-section" id="services">
+            <div class="content-panel">
+                <h2 data-en="Our Services" data-ja="サービス">サービス</h2>
+                <p data-en="1. 3D Web Development: Building immersive websites optimized for 3D and VR experiences." data-ja="1. 3Dウェブ開発：3DやVR体験に最適化された没入型ウェブサイトの構築。">1. 3Dウェブ開発：3DやVR体験に最適化された没入型ウェブサイトの構築。</p>
+                <p data-en="2. Interactive Web Applications: Creating engaging and dynamic web-based applications." data-ja="2. インタラクティブウェブアプリケーション：魅力的でダイナミックなウェブベースのアプリケーションの作成。">2. インタラクティブウェブアプリケーション：魅力的でダイナミックなウェブベースのアプリケーションの作成。</p>
+                <p data-en="3. Custom 3D Solutions: Tailored 3D solutions for various industries and specific needs." data-ja="3. カスタム3Dソリューション：様々な業界や特定のニーズに合わせたテーラーメイドの3Dソリューション。">3. カスタム3Dソリューション：様々な業界や特定のニーズに合わせたテーラーメイドの3Dソリューション。</p>
+                <p data-en="4. WebGL and Three.js Development: Leveraging cutting-edge web technologies for stunning 3D graphics." data-ja="4. WebGLとThree.js開発：最先端のウェブ技術を活用した驚異的な3Dグラフィックス。">4. WebGLとThree.js開発：最先端のウェブ技術を活用した驚異的な3Dグラフィックス。</p>
+            </div>
+        </div>
+        <div class="content-section" id="pricing">
+            <div id="pricing-container">
+                <div class="pricing-grid">
+                    <div class="pricing-item">
+                        <h3 data-en="Individual/Small Scale" data-ja="個人/小規模開発">個人/小規模開発</h3>
+                        <div class="price" data-en="From ¥300,000" data-ja="30万円から">30万円から</div>
+                        <ul>
+                            <li data-en="Custom 3D web development" data-ja="カスタム3Dウェブ開発">カスタム3Dウェブ開発</li>
+                            <li data-en="Interactive elements" data-ja="インタラクティブな要素">インタラクティブな要素</li>
+                            <li data-en="Basic 3D modeling" data-ja="基本的な3Dモデリング">基本的な3Dモデリング</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-item">
+                        <h3 data-en="Corporate" data-ja="法人向け">法人向け</h3>
+                        <div class="price" data-en="From ¥500,000" data-ja="50万円から">50万円から</div>
+                        <ul>
+                            <li data-en="Advanced 3D web solutions" data-ja="高度な3Dウェブソリューション">高度な3Dウェブソリューション</li>
+                            <li data-en="Complex interactive applications" data-ja="複雑なインタラクティブアプリケーション">複雑なインタラクティブアプリケーション</li>
+                            <li data-en="VR/AR compatibility" data-ja="VR/AR互換性">VR/AR互換性</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="content-section" id="contact">
-        <div class="content-panel">
-            <h2 data-en="Contact Us" data-ja="お問い合わせ">お問い合わせ</h2>
-            <p data-en="Ready to bring your 3D web vision to life? Get in touch with us directly via email or X." data-ja="3Dウェブのビジョンを実現する準備はできていますか？メールまたはXで直接お問い合わせください。">3Dウェブのビジョンを実現する準備はできていますか？メールまたはXで直接お問い合わせください。</p>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                    <a href="mailto:bluedragon70072@icloud.com" data-en="Email: bluedragon70072@icloud.com" data-ja="メール: bluedragon70072@icloud.com">メール: bluedragon70072@icloud.com</a>
-                </div>
-                <div class="contact-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-                    <a href="https://twitter.com/AI7819073478972" target="_blank" rel="noopener noreferrer" data-en="X: @AI7819073478972" data-ja="X: @AI7819073478972">X: @AI7819073478972</a>
+        <div class="content-section" id="contact">
+            <div class="content-panel">
+                <h2 data-en="Contact Us" data-ja="お問い合わせ">お問い合わせ</h2>
+                <p data-en="Ready to bring your 3D web vision to life? Get in touch with us directly via email or X." data-ja="3Dウェブのビジョンを実現する準備はできていますか？メールまたはXで直接お問い合わせください。">3Dウェブのビジョンを実現する準備はできていますか？メールまたはXで直接お問い合わせください。</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        <a href="mailto:bluedragon70072@icloud.com" data-en="Email: bluedragon70072@icloud.com" data-ja="メール: bluedragon70072@icloud.com">メール: bluedragon70072@icloud.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+                        <a href="https://twitter.com/AI7819073478972" target="_blank" rel="noopener noreferrer" data-en="X: @AI7819073478972" data-ja="X: @AI7819073478972">X: @AI7819073478972</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -363,6 +388,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const splashScreen = document.getElementById('splash-screen');
+                const mainContent = document.getElementById('main-content');
+
+                // Fade out splash screen
+                splashScreen.style.opacity = '0';
+
+                setTimeout(() => {
+                    splashScreen.style.display = 'none';
+                    mainContent.style.display = 'block';
+
+                    // Fade in main content
+                    setTimeout(() => {
+                        mainContent.style.opacity = '1';
+                        init(); // Call the init function after revealing the main content
+                    }, 50);
+                }, 500);
+            }, 2000); // Increased delay to 2 seconds
+        });
+
         let scene, camera, renderer, particles, raycaster, mouse;
         let quantumRealms = [];
         let currentRealm = 0;
@@ -650,8 +696,6 @@
 
             renderer.render(scene, camera);
         }
-
-        init();
     </script>
 </body>
 </html>
