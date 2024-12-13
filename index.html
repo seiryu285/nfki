@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus - Pioneering 3D Web Solutions</title>
+    <title>Σ - Pioneering 3D Web Solutions</title>
     <style>
         body, html {
             margin: 0;
@@ -286,29 +286,40 @@
             align-items: center;
             z-index: 9999;
             opacity: 1;
-            transition: opacity 0.5s ease;
+            transition: opacity 1s ease;
         }
-        #splash-screen h1 {
-            font-size: 48px;
-            color: black;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            font-family: 'Orbitron', sans-serif;
-        }
-        #main-content {
-            display: none;
+        #splash-image {
+            width: 200px;
+            height: 200px;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transform: scale(0.8);
+            animation: fadeInScale 0.8s ease forwards;
+        }
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        @media (max-width: 768px) {
+            #splash-image {
+                width: 150px;
+                height: 150px;
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="splash-screen">
-        <h1>NEXUS</h1>
+        <img id="splash-image" src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-79zzQ4PPvO6amARd9c7dMMXYEWzrEQ.png" alt="Σ">
     </div>
 
-    <div id="main-content">
+    <div id="main-content" style="display: none; opacity: 0; transition: opacity 1s ease;">
         <div id="universe-container"></div>
         <div id="quantum-cursor"></div>
         <div id="language-toggle">
@@ -324,14 +335,14 @@
         </div>
         <div class="content-section" id="home">
             <div class="content-panel">
-                <h2 data-en="Welcome to Nexus" data-ja="Nexusへようこそ">Nexusへようこそ</h2>
+                <h2 data-en="Welcome to Σ" data-ja="Σへようこそ">Σへようこそ</h2>
                 <p data-en="Pioneering the future of spatial computing and 3D web experiences. We specialize in enhancing UX for spatial computing platforms and creating immersive websites and interactive web applications." data-ja="空間コンピューティングと3Dウェブ体験の未来を切り開きます。空間コンピューティングプラットフォーム向けのUX向上と、没入型ウェブサイトやインタラクティブなウェブアプリケーションの制作を専門としています。">空間コンピューティングと3Dウェブ体験の未来を切り開きます。空間コンピューティングプラットフォーム向けのUX向上と、没入型ウェブサイトやインタラクティブなウェブアプリケーションの制作を専門としています。</p>
             </div>
         </div>
         <div class="content-section" id="about">
             <div class="content-panel">
                 <h2 data-en="About Us" data-ja="会社概要">会社概要</h2>
-                <p data-en="Nexus is a design studio specializing in enhancing UX for spatial computing and creating immersive 3D web experiences. Our team of developers and designers pushes the boundaries of interactive digital realms, offering custom solutions that bring your ideas to life in three-dimensional and spatial environments." data-ja="Nexusは、空間コンピューティング向けのUX向上と没入型3Dウェブ体験の創造を専門とするデザインスタジオです。開発者とデザイナーのチームが、インタラクティブなデジタル領域の可能性を押し広げ、お客様のアイデアを3次元および空間環境で実現するカスタムソリューションを提供しています。">Nexusは、空間コンピューティング向けのUX向上と没入型3Dウェブ体験の創造を専門とするデザインスタジオです。開発者とデザイナーのチームが、インタラクティブなデジタル領域の可能性を押し広げ、お客様のアイデアを3次元および空間環境で実現するカスタムソリューションを提供しています。</p>
+                <p data-en="Σ is a design studio specializing in enhancing UX for spatial computing and creating immersive 3D web experiences. Our team of developers and designers pushes the boundaries of interactive digital realms, offering custom solutions that bring your ideas to life in three-dimensional and spatial environments." data-ja="Σは、空間コンピューティング向けのUX向上と没入型3Dウェブ体験の創造を専門とするデザインスタジオです。開発者とデザイナーのチームが、インタラクティブなデジタル領域の可能性を押し広げ、お客様のアイデアを3次元および空間環境で実現するカスタムソリューションを提供しています。">Σは、空間コンピューティング向けのUX向上と没入型3Dウェブ体験の創造を専門とするデザインスタジオです。開発者とデザイナーのチームが、インタラクティブなデジタル領域の可能性を押し広げ、お客様のアイデアを3次元および空間環境で実現するカスタムソリューションを提供しています。</p>
             </div>
         </div>
         <div class="content-section" id="services">
@@ -389,6 +400,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Show splash screen for 3 seconds
             setTimeout(() => {
                 const splashScreen = document.getElementById('splash-screen');
                 const mainContent = document.getElementById('main-content');
@@ -396,6 +408,7 @@
                 // Fade out splash screen
                 splashScreen.style.opacity = '0';
 
+                // Wait for fade out animation to complete
                 setTimeout(() => {
                     splashScreen.style.display = 'none';
                     mainContent.style.display = 'block';
@@ -403,10 +416,10 @@
                     // Fade in main content
                     setTimeout(() => {
                         mainContent.style.opacity = '1';
-                        init(); // Call the init function after revealing the main content
-                    }, 50);
-                }, 500);
-            }, 2000); // Increased delay to 2 seconds
+                        init(); // Initialize the 3D scene
+                    }, 100);
+                }, 1000);
+            }, 3000);
         });
 
         let scene, camera, renderer, particles, raycaster, mouse;
@@ -596,7 +609,7 @@
 
             isTransitioning = true;
 
-            // Hide all content immediately
+            // Hide all content
             document.querySelectorAll('.content-section').forEach(section => {
                 section.style.opacity = '0';
                 section.style.pointerEvents = 'none';
@@ -699,3 +712,5 @@
     </script>
 </body>
 </html>
+
+
